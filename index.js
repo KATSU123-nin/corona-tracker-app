@@ -3,7 +3,7 @@ const app = express();
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
-const url = this.request("url")
+const url = require('url');
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -26,8 +26,10 @@ app.use('/corona-tracker-country-data', (req, res, next) => {
   })(req, res, next);
 });
 
-app.listen(process.env.PORT, () => {
+const port = process.env.PORT || 5050;
+
+app.listen(port, () => {
   console.log('Linteing on localhost');
 });
 
-module.exports = app
+module.exports = app;
